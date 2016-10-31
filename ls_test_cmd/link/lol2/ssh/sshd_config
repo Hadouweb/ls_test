@@ -1,0 +1,43 @@
+#     $OpenBSD: sshd_config,v 1.89 2013/02/06 00:20:42 dtucker Exp $
+
+Port 22
+ListenAddress 0.0.0.0
+
+SyslogFacility AUTHPRIV
+
+PermitRootLogin yes
+StrictModes no
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+
+AuthorizedKeysFile      .ssh/authorized_keys
+
+PasswordAuthentication yes
+PermitEmptyPasswords no
+
+ChallengeResponseAuthentication no
+
+UsePrivilegeSeparation sandbox            # Default for new installations.
+
+AcceptEnv LANG LC_*
+
+Subsystem   sftp  /usr/libexec/sftp-server
+UseDNS no
+UsePAM no
+
+#AllowUsers bocal@10.54.1.36 root
+AllowUsers bocal@10.54.1.36 bocal@10.42.1.0/24 bocal@10.43.1.0/24 root
+
+Match User root
+      RSAAuthentication yes
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      PermitEmptyPasswords no
+      ForceCommand /sbin/yubikey_shell
+
+Match User bocal
+      RSAAuthentication yes
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      PermitEmptyPasswords no

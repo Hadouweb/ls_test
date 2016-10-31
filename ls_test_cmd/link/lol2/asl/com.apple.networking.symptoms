@@ -1,0 +1,28 @@
+#
+# com.apple.networking.symptoms
+#
+
+# Enabling is via the symptoms log level
+
+= enable [Plist /Library/Preferences/com.apple.symptoms.plist] [= symptoms_log_level 7]
+= enable [Plist /Library/Preferences/com.apple.symptoms.plist] [= symptoms_helper_log_level 7]
+
+# We claim all messages at Error or below.  This means ASL only sees Error messages.
+
+? [= Facility com.apple.networking.symptomevaluator] [> Level error] claim
+? [= Facility com.apple.networking.symptomanalytics] [> Level error] claim
+? [= Facility com.apple.networking.symptomsdhelper]  [> Level error] claim
+
+
+# Define permissions & rotate settings for our log files
+> /Library/Logs/CrashReporter/com.apple.networking.symptoms.log rotate=local-basic file_max=1M compress  uid=501 gid=501 format=$((Time)(local.6))\ $Host\ $(Sender)[$(PID)]\:\ $(Message)
+> /Library/Logs/CrashReporter/com.apple.networking.symptoms-helper.log rotate=local-basic file_max=1M compress  uid=501 gid=501 format=$((Time)(local.6))\ $Host\ $(Sender)[$(PID)]\:\ $(Message)
+
+# Direct all log statements go to our file
+# The SymptomEvaluator facility marks the SymptomEvaluator that currently runs in the context of symptomsd
+# The SymptomAnalytics facility marks the Analytics code that can run in various clients.
+# The SymptomsdHelper  facility marks the training/scoring code that currently runs in the context of symptomsd
+
+? [= Facility com.apple.networking.symptomevaluator] file /Library/Logs/CrashReporter/com.apple.networking.symptoms.log 
+? [= Facility com.apple.networking.symptomanalytics] file /Library/Logs/CrashReporter/com.apple.networking.symptoms.log
+? [= Facility com.apple.networking.symptomsdhelper]  file /Library/Logs/CrashReporter/com.apple.networking.symptoms-helper.log

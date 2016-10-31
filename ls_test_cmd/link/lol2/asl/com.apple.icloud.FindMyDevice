@@ -1,0 +1,16 @@
+# Make our .asl facility logs to not go to the main syslog
+? [A= Facility com.apple.icloud.FindMyDevice.asl] claim
+? [A= Facility com.apple.icloud.FindMyDevice.UserAgent.asl] claim
+
+# Define permissions for our directory
+> /var/log/findmydeviced mode=0755
+
+# Define permissions & rotate settings for our log files
+> /var/log/findmydeviced/findmydeviced.asl format=asl rotate=seq compress file_max=10M all_max=100M ttl=3 soft
+
+# Redirect all our messages to our log file
+# But only logs from our daemon - since it knows how to read log settings
+# Ditch logs from the framework (called from other processes), since it does not know how to read log settings
+# Only for non-internal builds
+? [= Sender findmydeviced] [A= Facility com.apple.icloud.FindMyDevice.asl] file /var/log/findmydeviced/findmydeviced.asl
+? [= Sender findmydevice-user-agent] [A= Facility com.apple.icloud.FindMyDevice.UserAgent.asl] file /var/log/findmydeviced/findmydeviced.asl

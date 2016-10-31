@@ -1,0 +1,5 @@
+LABEL=home_charfaou   /nfs/2016/c/charfaou  hfs rw,auto,owners,nobrowse
+LABEL=home_splace   /Users/splace  hfs rw,auto,owners,nobrowse
+LABEL=home_cboulonn   /Users/cboulonn  hfs rw,auto,owners,nobrowse
+LABEL=home_jcao   /Users/jcao  hfs rw,auto,owners,nobrowse
+LABEL=home_nle-bret   /Users/nle-bret  hfs rw,auto,owners,nobrowse

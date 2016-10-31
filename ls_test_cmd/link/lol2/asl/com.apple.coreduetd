@@ -1,0 +1,4 @@
+# Even though coreduetd currently does not use ASL, this tells ASL to rotate the log file
+# daily by copying it, compressing it, and then truncating the existing file. 
+# It will also delete files older than two weeks old.
+> /var/log/coreduetd.log extern rotate=seq extern rotate=seq compress truncate mode=0644 ttl=14 all_max=16M

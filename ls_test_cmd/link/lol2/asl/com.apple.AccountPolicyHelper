@@ -1,0 +1,4 @@
+# Claim everything from AccountPolicyHelper agent and log to our own file.
+
+? [= Facility com.apple.AccountPolicyHelper] claim only
+* file /var/log/accountpolicy.log mode=0644 rotate=seq compress file_max=5M all_max=50M format=$((Time)(lcl))\ $(Message)

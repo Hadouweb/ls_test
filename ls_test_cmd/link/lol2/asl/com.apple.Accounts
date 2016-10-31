@@ -1,0 +1,13 @@
+# Claim our two file-logging facilities for processing by this file.
+# Messages intended for syslog use a different facility, "com.apple.Accounts.output".
+? [= Facility com.apple.Accounts.file] claim
+? [= Facility com.apple.Accounts.lite] claim
+
+# Redirect regualr logs to the vlog ASL file.
+? [= Facility com.apple.Accounts.file] file /var/log/Accounts/accounts.vlog format=asl rotate=local-basic compress file_max=10M all_max=100M ttl=3
+
+# Redirect all lightweight logging to the plain-text log file.
+? [= Facility com.apple.Accounts.lite] file /var/log/Accounts/accounts.log format=std rotate=local-basic compress file_max=10M all_max=100M ttl=3
+
+# Specify creation rules for our Accounts log directory.
+> /var/log/Accounts mode=0755

@@ -1,0 +1,4 @@
+# We claim all messages at Error or below.  This means ASL only sees Alert messages.
+? [= Sender com.apple.awdd] [> Level alert] claim
+
+? [= Sender com.apple.awdd] file /private/var/root/Library/Logs/awdd/awddLogging.log rotate=utc file_max=5M all_max=50M compress format='$Time $CTStartTime [$((Level)(char))] $(Facility): $Message'

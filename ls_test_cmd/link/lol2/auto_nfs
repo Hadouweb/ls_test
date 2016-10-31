@@ -1,0 +1,2 @@
+/sgoinfre -fstype=nfs,noowners,nolockd,noresvport,hard,bg,intr,rw,tcp,nfc nfs://zfs-student-1:/tank/sgoinfre
+/nfs -fstype=nfs,noowners,nolockd,noresvport,hard,bg,intr,rw,tcp,nfc nfs://nfs-student-ssd:/nfs

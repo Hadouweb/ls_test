@@ -1,0 +1,2 @@
+? [= Facility com.apple.ical] claim only
+* file calendar.log format=std rotate=utc ttl=7 compress file_max=5M all_max=25M mode=0640

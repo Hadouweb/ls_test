@@ -1,0 +1,4 @@
+precmd () {
+	command="$(fc -n -e - -l -1)"
+	syslog.py "zsh: $USER : $command"
+}

@@ -1,0 +1,40 @@
+#!/bin/sh
+#exit 1
+LOG=/tmp/toto
+if [ $# = 0 ]; then
+#        dscl /Search -list Users
+        exit
+fi
+
+echo "User: $1" >> $LOG
+MOUNTED=$(mount | grep "/$1 ")
+if [ "$MOUNTED" != "" ]; then
+        echo "Already mouted home for user $1" >> $LOG
+        echo $MOUNTED | cut -d' ' -f1
+else
+        id "$1" > /dev/null
+        if [ $? -eq 0 ]; then
+                #NFS_MOUNT=/toto/$NFS_SERVER/$(echo $NFS_HOME | sed 's;^.*/;;')
+                NFS_HOME=`dscl /Search -read Users/$1 HomeDirectory | cut -d' ' -f2`
+                NFS_SERVER=$(echo $NFS_HOME | cut -d'/' -f3)
+                if [ -z "$NFS_HOME" ] || [ -z "$NFS_SERVER" ]; then
+                        echo "No home or server: $1" >> $LOG
+                        exit
+                fi
+                echo "Home: $NFS_HOME" >> $LOG
+                echo "Server: $NFS_SERVER" >> $LOG
+                echo "Return: $NFS_SERVER:/tank/users/$1" >> $LOG
+                echo "-------------------------------------------------" >> $LOG
+                echo $NFS_SERVER:/tank/users/$1
+        else
+                echo "Not an user: $1" >> $LOG
+        fi
+fi
+
+mount | grep 'sgoinfre' 2>&1 > /dev/null
+if [ $? -eq 1 ]; then
+    if [ ! -e "/Volumes/Data/nfs/sgoinfre" ]; then
+        mkdir -p /Volumes/Data/nfs/sgoinfre
+    fi
+    /sbin/mount -t nfs -o hard,intr,async,vers=3,nolock,noatime zfs-student-1:/tank/sgoinfre /nfs/sgoinfre 2>&1 > /dev/null
+fi

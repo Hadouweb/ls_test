@@ -1,0 +1,7 @@
+> /var/db/diagnostics/activity.0.tracev3 activity rotate=activity.0.lcl-b.tracev3 all_max=75M
+> /var/db/diagnostics/activity.1.tracev3 activity rotate=activity.1.lcl-b.tracev3 all_max=75M
+> /var/db/diagnostics/activity.2.tracev3 activity rotate=activity.2.lcl-b.tracev3 all_max=75M
+> /var/db/diagnostics/activity.3.tracev3 activity rotate=activity.3.lcl-b.tracev3 all_max=75M
+> /var/db/diagnostics/activity.4.tracev3 activity rotate=activity.4.lcl-b.tracev3 all_max=75M
+> /var/db/diagnostics/activity.5.tracev3 activity rotate=activity.5.lcl-b.tracev3 all_max=75M
+> /var/db/diagnostics/faults.tracev3 activity rotate=faults.lcl-b.tracev3 all_max=150M compress mode=0640 uid=0 gid=0

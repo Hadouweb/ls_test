@@ -1,0 +1,5 @@
+# authorization: auth account
+auth       required       pam_krb5.so use_first_pass use_kcminit default_principal
+auth       optional       pam_ntlm.so use_first_pass
+auth       required       pam_opendirectory.so use_first_pass nullok
+account    required       pam_opendirectory.so

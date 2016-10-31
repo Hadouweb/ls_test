@@ -1,0 +1,11 @@
+# /etc/asl/com.apple.xpc.activity
+
+# /var/log/module/com.apple.xpc.activity/xpc.activity.log.N
+> xpc.activity.log format=std.6 rotate=seq ttl=3 all_max=20M compress
+
+# Everything goes to our log file. Levels above error (e.g. notice) stop here
+# and don't go on to syslog. By default, debug doesn't even reach this point.
+? [= Sender com.apple.cts] file xpc.activity.log
+? [= Sender com.apple.cts] [> Level error] claim
+? [= Sender com.apple.xpc.activity] file xpc.activity.log
+? [= Sender com.apple.xpc.activity] [> Level error] claim
